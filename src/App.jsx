@@ -1,10 +1,5 @@
-import styled from "styled-components";
 import GlobalStyles from "./styles/GlobalStyles";
-
-const H1 = styled.h1`
-  font-size: 4rem;
-  color: red;
-`;
+import Heading from "./styles/Heading";
 
 function App() {
   return (
@@ -13,7 +8,8 @@ function App() {
 
       <section>
         <div>
-          <H1>Autocare Finance</H1>
+          <Heading as="h1">Autocare Finance</Heading>
+          <Heading as="h2">This is heading 2</Heading>
         </div>
       </section>
     </>
