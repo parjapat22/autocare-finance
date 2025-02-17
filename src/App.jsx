@@ -1,17 +1,24 @@
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import GlobalStyles from "./styles/GlobalStyles";
-import Heading from "./styles/Heading";
+
+import Dashboard from "./pages/Dashboard";
+import Invoices from "./pages/Invoices";
 
 function App() {
   return (
     <>
       <GlobalStyles />
 
-      <section>
-        <div>
-          <Heading as="h1">Autocare Finance</Heading>
-          <Heading as="h2">This is heading 2</Heading>
-        </div>
-      </section>
+      <BrowserRouter>
+        <Routes>
+          <Route index element={<Navigate replace to="dashboard" />} />
+          <Route path="dashboard" element={<Dashboard />} />
+
+          <Route path="invoices" element={<Invoices />} />
+
+          {/* <Route path="*" element={<PageNotFound />} /> */}
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
