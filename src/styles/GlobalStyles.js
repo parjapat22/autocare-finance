@@ -1,3 +1,6 @@
+import { createGlobalStyle } from "styled-components";
+
+const GlobalStyles = createGlobalStyle`
 :root {
   --max-width-desktop: 115rem;
   --max-width-tablet: 90rem;
@@ -135,3 +138,6 @@ img {
   display: block;
   object-fit: fill;
 }
+`;
+
+export default GlobalStyles;
