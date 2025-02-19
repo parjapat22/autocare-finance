@@ -2,29 +2,29 @@ import NavLogo from "./NavLogo";
 import NavMenu from "./NavMenu";
 import styled from "styled-components";
 
-const HeaderStyled = styled.header`
-  background-color: var(--color-card1);
+const StyledHeader = styled.header`
   margin-inline: auto;
+  background-color: var(--color-card1);
 `;
 
-const DivStyled = styled.div`
+const StyledDiv = styled.div`
   max-width: var(--max-width-desktop);
   margin-inline: auto;
+  padding: 0.5rem 0rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 5rem;
-  padding: 0.5rem 0rem;
 `;
 
 function Header() {
   return (
-    <HeaderStyled>
-      <DivStyled>
+    <StyledHeader>
+      <StyledDiv>
         <NavLogo />
         <NavMenu />
-      </DivStyled>
-    </HeaderStyled>
+      </StyledDiv>
+    </StyledHeader>
   );
 }
 

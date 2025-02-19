@@ -72,7 +72,7 @@ function AddItem({ onAddItem, onDeleteItem }) {
         <button onClick={handleAddItem}>Add Item</button>
       </div>
 
-      <p style={{ color: "red", textAlign: "center" }}>{errorMessage}</p>
+      <p className="errorMsg">{errorMessage}</p>
     </div>
   );
 }

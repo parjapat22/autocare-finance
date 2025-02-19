@@ -10,7 +10,7 @@ const GlobalStyles = createGlobalStyle`
   /* neutral 500 */
   --color-body: #737373;
   /* neutral 50 */
-  --color-section: #fafafa;
+  --color-main: #fafafa;
 
   /* custom indigo similar to blue 700*/
   --color-primary: #4d60a5;
@@ -70,9 +70,10 @@ body {
   line-height: 1.3;
 }
 
-section {
-  background-color: var(--color-section);
+main {
+  background-color: var(--color-main);
   margin-inline: auto;
+  padding: 0rem 5rem;
 }
 
 .container {

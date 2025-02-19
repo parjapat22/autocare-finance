@@ -23,7 +23,7 @@ function Invoice() {
   };
 
   return (
-    <div className="invoice">
+    <section className="invoice">
       <InvoiceHeader />
       <CustomerDetails />
       <AddItem onAddItem={handleAddItem} />
@@ -33,10 +33,8 @@ function Invoice() {
         subTotal={calculateSubAmount()}
       />
 
-      <h4 style={{ textAlign: "center" }}>
-        ** Thank you for choosing Highend Autocare **
-      </h4>
-    </div>
+      <h4>** Thank you for choosing Highend Autocare **</h4>
+    </section>
   );
 }
 

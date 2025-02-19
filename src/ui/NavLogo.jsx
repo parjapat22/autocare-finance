@@ -1,18 +1,19 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+
 import Logo from "../assets/nav-logo.png";
 
-const DivStyled = styled.div`
+const StyledDiv = styled.div`
   width: 10%;
 `;
 
 function NavLogo() {
   return (
-    <DivStyled>
+    <StyledDiv>
       <Link to="/">
         <img src={Logo} alt="nav logo" />
       </Link>
-    </DivStyled>
+    </StyledDiv>
   );
 }
 
