@@ -1,9 +1,9 @@
+import Invoice from "../components/invoices/Invoice";
+
 function Invoices() {
   return (
     <section>
-      <div>
-        <h1>Invoices</h1>
-      </div>
+      <Invoice />
     </section>
   );
 }
