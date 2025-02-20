@@ -13,12 +13,26 @@ export async function getCustomers() {
   return data;
 }
 
+// add new customer
+export async function addCustomer(newCustomer) {
+  const { data, error } = await supabase
+    .from("customers")
+    .insert([newCustomer]);
+
+  if (error) {
+    console.log(error);
+    throw new Error("New customer could not be added");
+  }
+
+  return data;
+}
+
+// delete customer row
 export async function deleteCustomer(id) {
   const { error } = await supabase.from("customers").delete().eq("id", id);
 
   if (error) {
     console.log(error);
-
     throw new Error("Customer could not be deleted");
   }
 }

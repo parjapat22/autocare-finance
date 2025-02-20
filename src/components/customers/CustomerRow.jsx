@@ -18,7 +18,7 @@ function CustomerRow({ customer }) {
     email,
     address,
     city,
-    postCode,
+    postcode,
     invoiceNumber,
     notes,
   } = customer;
@@ -48,7 +48,7 @@ function CustomerRow({ customer }) {
       <StyledTd>{email}</StyledTd>
       <StyledTd>{address}</StyledTd>
       <StyledTd>{city}</StyledTd>
-      <StyledTd>{postCode}</StyledTd>
+      <StyledTd>{postcode}</StyledTd>
       <StyledTd>{invoiceNumber}</StyledTd>
       <StyledTd>{notes}</StyledTd>
 

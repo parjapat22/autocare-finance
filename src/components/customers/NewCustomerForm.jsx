@@ -1,5 +1,9 @@
 import { useForm } from "react-hook-form";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 import styled from "styled-components";
+
+import { addCustomer } from "../../services/apiCustomers";
 
 import Form from "../../styles/Form";
 import Input from "../../styles/Input";
@@ -41,18 +45,33 @@ const Error = styled.span`
 // useForm hook
 // 1. register the input fields
 // 2. add onSubmit function to form element
+// 3. useMutation hook to handle form data
+// 4. reset the input fields
 function NewCustomerForm() {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
+  const queryClient = useQueryClient();
+
+  const { isLoading: isAdding, mutate } = useMutation({
+    mutationFn: addCustomer,
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["customers"] });
+      toast.success("New customer added successfully");
+      reset();
+    },
+
+    onError: (err) => toast.error(err.message),
+  });
 
   function onSubmit(data) {
-    console.log(data);
+    mutate(data);
   }
 
   return (
     <Form type="regular" onSubmit={handleSubmit(onSubmit)}>
       <FormRow>
-        <label htmlFor="name">Customer name</label>
-        <Input type="text" id="name" {...register("name")} />
+        <label htmlFor="fullName">Customer name</label>
+        <Input type="text" id="fullName" {...register("fullName")} />
       </FormRow>
 
       <FormRow>
@@ -91,17 +110,22 @@ function NewCustomerForm() {
       </FormRow>
 
       <FormRow>
-        <label htmlFor="invoice">Invoice</label>
-        <FileInput accept=".pdf" id="invoice" />
+        <label htmlFor="invoiceNumber">Invoice</label>
+        <FileInput accept=".pdf" id="invoiceNumber" />
       </FormRow>
 
       <FormRow>
         {/* type is an HTML attribute! */}
-        <Button size="medium" variation="secondary" type="reset">
+        <Button
+          size="medium"
+          variation="secondary"
+          type="reset"
+          disabled={isAdding}
+        >
           Cancel
         </Button>
 
-        <Button size="medium" variation="primary">
+        <Button size="medium" variation="primary" disabled={isAdding}>
           Add Customer
         </Button>
       </FormRow>
