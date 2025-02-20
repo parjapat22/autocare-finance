@@ -9,8 +9,8 @@ import Customers from "./pages/Customers";
 import Invoices from "./pages/Invoices";
 
 const queryClient = new QueryClient({
-  // 30 seconds * 1000 milliseconds
-  defaultOptions: { queries: { staleTime: 30 * 1000 } },
+  // 10 seconds * 1000 milliseconds
+  defaultOptions: { queries: { staleTime: 10 * 1000 } },
 });
 
 function App() {

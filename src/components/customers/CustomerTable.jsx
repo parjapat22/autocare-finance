@@ -17,7 +17,7 @@ const StyledTable = styled.table`
   }
 
   & tr:hover {
-    background-color: var(--color-indigo-200);
+    background-color: var(--color-indigo-100);
   }
 `;
 
@@ -35,7 +35,7 @@ function CustomerTable() {
     data: customers,
     error,
   } = useQuery({
-    queryKey: ["customer"],
+    queryKey: ["customers"],
     queryFn: getCustomers,
   });
 
@@ -50,9 +50,10 @@ function CustomerTable() {
           <StyledTh>Email</StyledTh>
           <StyledTh>Address</StyledTh>
           <StyledTh>City</StyledTh>
-          <StyledTh>Post Code</StyledTh>
+          <StyledTh>Postcode</StyledTh>
           <StyledTh>Invoice #</StyledTh>
           <StyledTh>Notes</StyledTh>
+          <StyledTh>Actions</StyledTh>
         </tr>
       </thead>
 

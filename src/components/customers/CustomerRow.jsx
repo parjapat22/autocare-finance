@@ -1,4 +1,6 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import styled from "styled-components";
+import { deleteCustomer } from "../../services/apiCustomers";
 
 const StyledTd = styled.td`
   padding: 0.5rem;
@@ -7,6 +9,7 @@ const StyledTd = styled.td`
 
 function CustomerRow({ customer }) {
   const {
+    id: cabinId,
     fullName,
     mobile,
     email,
@@ -16,6 +19,20 @@ function CustomerRow({ customer }) {
     invoiceNumber,
     notes,
   } = customer;
+
+  // this hook is used to re-fetch the data upon successfull delete action
+  const queryClient = useQueryClient();
+
+  // delete a customer
+  const { isLoading: isDeleting, mutate } = useMutation({
+    mutationFn: (id) => deleteCustomer(id),
+    // same as above due to inputting same value (id)
+    // mutationFn: deleteCustomer,
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["customers"] });
+    },
+  });
 
   return (
     <tr>
@@ -27,6 +44,16 @@ function CustomerRow({ customer }) {
       <StyledTd>{postCode}</StyledTd>
       <StyledTd>{invoiceNumber}</StyledTd>
       <StyledTd>{notes}</StyledTd>
+
+      <StyledTd>
+        <button
+          className="btn"
+          onClick={() => mutate(cabinId)}
+          disabled={isDeleting}
+        >
+          Delete
+        </button>
+      </StyledTd>
     </tr>
   );
 }

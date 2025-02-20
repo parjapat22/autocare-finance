@@ -12,3 +12,13 @@ export async function getCustomers() {
 
   return data;
 }
+
+export async function deleteCustomer(id) {
+  const { error } = await supabase.from("customers").delete().eq("id", id);
+
+  if (error) {
+    console.log(error);
+
+    throw new Error("Customer could not be deleted");
+  }
+}

@@ -110,21 +110,19 @@ a:hover {
 }
 
 .btn {
-  background-color: var(--color-indigo-100);
-  color: var(--color-primary);
+  background-color: var(--color-indigo-400);
+  color: var(--color-neutral-50);
   margin-inline: auto;
-  padding: 1rem 2rem;
+  padding: 0.5rem 1rem;
   font-size: 1.5rem;
-  font-weight: bold;
-  border: 1px solid var(--color-primary);
-  border-radius: 2rem;
+  border: none;
+  border-radius: 1rem;
   transition: var(--transition);
   cursor: pointer;
 }
 
 .btn:hover {
-  background-color: var(--color-primary);
-  color: var(--color-indigo-100);
+  background-color: var(--color-indigo-600);
 }
 
 img {
