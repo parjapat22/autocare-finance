@@ -2,7 +2,7 @@ import { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
 :root {
-  --max-width-desktop: 115rem;
+  --max-width-desktop: 120rem;
   --max-width-tablet: 90rem;
   --max-width-mobile: 50rem;
 

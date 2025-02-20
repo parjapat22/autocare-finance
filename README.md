@@ -21,6 +21,7 @@ HTML, CSS - styled components, React.js, Supabase
 - react-router-dom
 - react-icons
 - react-query
+- react-hot-toast
 
 ## Key Features
 

@@ -1,12 +1,20 @@
+import styled from "styled-components";
+
 import CustomerTable from "../components/customers/CustomerTable";
 
 import Row from "../styles/Row";
 import Heading from "../styles/Heading";
 
+const StyledDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
 function Customers() {
   return (
     <section>
-      <div className="container">
+      <StyledDiv className="container">
         <Row type="horizontal">
           <Heading as="h1">All Customers</Heading>
           <p>filter / sort</p>
@@ -15,7 +23,7 @@ function Customers() {
         <Row type="vertical">
           <CustomerTable />
         </Row>
-      </div>
+      </StyledDiv>
     </section>
   );
 }
