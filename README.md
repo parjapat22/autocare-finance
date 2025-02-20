@@ -19,13 +19,17 @@ HTML, CSS - styled components, React.js, Supabase
 ### Libraries
 
 - react-router-dom
-- react-icons
-- react-query
-- react-hot-toast
+- react-icons - provides icons
+- react-query - to handle supabase data
+- react-hot-toast - to handle notifications
+- react-hook-form - to handle form data
 
 ## Key Features
 
 ## Known Issues
+
+- empty table - no data to display
+- table border radius
 
 ## Upcoming Features
 

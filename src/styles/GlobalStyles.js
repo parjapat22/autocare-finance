@@ -110,8 +110,8 @@ a:hover {
 }
 
 .btn {
-  background-color: var(--color-indigo-400);
-  color: var(--color-neutral-50);
+  background-color: var(--color-indigo-500);
+  color: var(--color-indigo-50);
   margin-inline: auto;
   padding: 0.5rem 1rem;
   font-size: 1.5rem;

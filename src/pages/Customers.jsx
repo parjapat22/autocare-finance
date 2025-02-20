@@ -1,6 +1,9 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 import CustomerTable from "../components/customers/CustomerTable";
+import NewCustomerForm from "../components/customers/NewCustomerForm";
+import Button from "../components/Button";
 
 import Row from "../styles/Row";
 import Heading from "../styles/Heading";
@@ -12,6 +15,8 @@ const StyledDiv = styled.div`
 `;
 
 function Customers() {
+  const [showForm, setShowForm] = useState(false);
+
   return (
     <section>
       <StyledDiv className="container">
@@ -22,6 +27,12 @@ function Customers() {
 
         <Row type="vertical">
           <CustomerTable />
+
+          <Button onClick={() => setShowForm(!showForm)}>
+            Add new customer
+          </Button>
+
+          {showForm && <NewCustomerForm />}
         </Row>
       </StyledDiv>
     </section>

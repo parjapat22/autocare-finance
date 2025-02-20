@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import styled from "styled-components";
 
 import { deleteCustomer } from "../../services/apiCustomers";
+import Button from "../Button";
 
 const StyledTd = styled.td`
   padding: 0.5rem;
@@ -52,13 +53,9 @@ function CustomerRow({ customer }) {
       <StyledTd>{notes}</StyledTd>
 
       <StyledTd>
-        <button
-          className="btn"
-          onClick={() => mutate(cabinId)}
-          disabled={isDeleting}
-        >
+        <Button onClick={() => mutate(cabinId)} disabled={isDeleting}>
           Delete
-        </button>
+        </Button>
       </StyledTd>
     </tr>
   );
