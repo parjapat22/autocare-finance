@@ -1,56 +1,28 @@
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import styled from "styled-components";
 
 import { addCustomer } from "../../services/apiCustomers";
 
 import Form from "../../styles/Form";
+import FormRow from "../../styles/FormRow";
 import Input from "../../styles/Input";
 import Textarea from "../../styles/Textarea";
 import FileInput from "../../styles/FileInput";
 import Button from "../../styles/Button";
-
-const FormRow = styled.div`
-  padding: 1rem 0;
-  display: grid;
-  grid-template-columns: 24rem 1fr 1.5fr;
-  align-items: center;
-  gap: 2rem;
-
-  &:first-child {
-    padding-top: 0;
-  }
-
-  &:last-child {
-    padding-bottom: 0;
-  }
-
-  &:not(:last-child) {
-    border-bottom: 1px solid var(--color-neutral-200);
-  }
-
-  &:has(button) {
-    display: flex;
-    justify-content: flex-end;
-    gap: 2rem;
-  }
-`;
-
-const Error = styled.span`
-  font-size: 1.4rem;
-  color: var(--color-red-500);
-`;
 
 // useForm hook
 // 1. register the input fields
 // 2. add onSubmit function to form element
 // 3. useMutation hook to handle form data
 // 4. reset the input fields
-function NewCustomerForm() {
-  const { register, handleSubmit, reset } = useForm();
-  const queryClient = useQueryClient();
 
+// getValues gives current field value (same as event.target.value)
+function NewCustomerForm() {
+  const { register, handleSubmit, reset, getValues, formState } = useForm();
+  const { errors } = formState;
+
+  const queryClient = useQueryClient();
   const { isLoading: isAdding, mutate } = useMutation({
     mutationFn: addCustomer,
 
@@ -67,51 +39,79 @@ function NewCustomerForm() {
     mutate(data);
   }
 
+  function onError(errors) {
+    // console.log(errors);
+    // errors are handled using hook inbuilt formState
+    // formState is an alternate way to handle errors
+  }
+
   return (
-    <Form type="regular" onSubmit={handleSubmit(onSubmit)}>
-      <FormRow>
-        <label htmlFor="fullName">Customer name</label>
-        <Input type="text" id="fullName" {...register("fullName")} />
-      </FormRow>
-
-      <FormRow>
-        <label htmlFor="mobile">Mobile</label>
-        <Input type="number" id="mobile" {...register("mobile")} />
-      </FormRow>
-
-      <FormRow>
-        <label htmlFor="email">Email</label>
-        <Input type="text" id="email" {...register("email")} />
-      </FormRow>
-
-      <FormRow>
-        <label htmlFor="address">Address</label>
-        <Textarea type="text" id="address" {...register("address")} />
-      </FormRow>
-
-      <FormRow>
-        <label htmlFor="city">City</label>
-        <Input type="text" id="city" {...register("city")} />
-      </FormRow>
-
-      <FormRow>
-        <label htmlFor="postcode">Postcode</label>
+    <Form type="regular" onSubmit={handleSubmit(onSubmit, onError)}>
+      <FormRow label="Customer name" error={errors?.fullName?.message}>
         <Input
-          type="number"
-          id="postcode"
-          defaultValue={2000}
-          {...register("postcode")}
+          type="text"
+          id="fullName"
+          disabled={isAdding}
+          {...register("fullName", { required: "This field is required" })}
         />
       </FormRow>
 
-      <FormRow>
-        <label htmlFor="notes">Notes</label>
-        <Input type="text" id="notes" {...register("notes")} />
+      <FormRow label="Mobile" error={errors?.mobile?.message}>
+        <Input
+          type="number"
+          id="mobile"
+          disabled={isAdding}
+          {...register("mobile", { required: "This field is required" })}
+        />
       </FormRow>
 
-      <FormRow>
-        <label htmlFor="invoiceNumber">Invoice</label>
-        <FileInput accept=".pdf" id="invoiceNumber" />
+      <FormRow label="Email" error={errors?.email?.message}>
+        <Input
+          type="text"
+          id="email"
+          disabled={isAdding}
+          {...register("email", { required: "This field is required" })}
+        />
+      </FormRow>
+
+      <FormRow label="Address" error={errors?.address?.message}>
+        <Textarea
+          type="text"
+          id="address"
+          disabled={isAdding}
+          {...register("address")}
+        />
+      </FormRow>
+
+      <FormRow label="City" error={errors?.city?.message}>
+        <Input
+          type="text"
+          id="city"
+          disabled={isAdding}
+          {...register("city", { required: "This field is required" })}
+        />
+      </FormRow>
+
+      <FormRow label="Postcode" error={errors?.postcode?.message}>
+        <Input
+          type="number"
+          id="postcode"
+          disabled={isAdding}
+          {...register("postcode", { required: "This field is required" })}
+        />
+      </FormRow>
+
+      <FormRow label="Notes" error={errors?.notes?.message}>
+        <Input
+          type="text"
+          id="notes"
+          disabled={isAdding}
+          {...register("notes")}
+        />
+      </FormRow>
+
+      <FormRow label="Invoice">
+        <FileInput accept=".pdf" id="invoiceNumber" disabled={isAdding} />
       </FormRow>
 
       <FormRow>

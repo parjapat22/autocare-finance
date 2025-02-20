@@ -33,8 +33,8 @@ const variations = {
     border: 1px solid var(--color-neutral-500);
 
     &:hover {
-      background-color: var(--color-neutral-100);
       color: var(--color-neutral-800);
+      border: 1px solid var(--color-neutral-800);
     }
   `,
 
