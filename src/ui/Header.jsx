@@ -1,10 +1,10 @@
+import styled from "styled-components";
 import NavLogo from "./NavLogo";
 import NavMenu from "./NavMenu";
-import styled from "styled-components";
 
 const StyledHeader = styled.header`
+  background-color: var(--color-indigo-100);
   margin-inline: auto;
-  background-color: var(--color-card1);
 `;
 
 const StyledDiv = styled.div`

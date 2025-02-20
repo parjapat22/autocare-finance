@@ -1,8 +1,10 @@
+import Heading from "../styles/Heading";
+
 function Dashboard() {
   return (
     <section>
-      <div>
-        <h1>Dashboard</h1>
+      <div className="container">
+        <Heading as="h1">Dashboard</Heading>
       </div>
     </section>
   );

@@ -1,7 +1,8 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
-import { HiOutlineHome } from "react-icons/hi2";
+import { HiHome } from "react-icons/hi2";
+import { HiUserGroup } from "react-icons/hi";
 import { FaFileInvoiceDollar } from "react-icons/fa";
 
 const StyledUl = styled.ul`
@@ -18,10 +19,10 @@ const StyledLi = styled.li`
 const StyledNavLink = styled(NavLink)`
   &:link,
   &:visited {
+    color: var(--color-neutral-800);
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    color: var(--color-text1);
     font-size: 2rem;
     font-weight: bold;
     transition: var(--transition);
@@ -36,9 +37,9 @@ const StyledNavLink = styled(NavLink)`
   }
 
   & svg {
-    width: 2rem;
-    height: 2rem;
-    color: var(--color-text1);
+    color: var(--color-neutral-800);
+    width: 1.8rem;
+    height: 1.8rem;
     transition: var(--transition);
   }
 
@@ -56,8 +57,15 @@ function NavMenu() {
       <StyledUl>
         <StyledLi>
           <StyledNavLink to="/dashboard">
-            <HiOutlineHome />
+            <HiHome />
             <span>Dashboard</span>
+          </StyledNavLink>
+        </StyledLi>
+
+        <StyledLi>
+          <StyledNavLink to="/customers">
+            <HiUserGroup />
+            <span>Customers</span>
           </StyledNavLink>
         </StyledLi>
 

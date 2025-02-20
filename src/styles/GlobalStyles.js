@@ -6,40 +6,34 @@ const GlobalStyles = createGlobalStyle`
   --max-width-tablet: 90rem;
   --max-width-mobile: 50rem;
 
-  /* background colors */
-  /* neutral 500 */
-  --color-body: #737373;
-  /* neutral 50 */
-  --color-main: #fafafa;
-
+  /* colors set */
   /* custom indigo similar to blue 700*/
   --color-primary: #4d60a5;
-  /* indigo 500 */
-  --color-secondary: #6366f1;
-  /* indigo 300 */
-  --color-card3: #a5b4fc;
-  /* indigo 200 */
-  --color-card2: #c7d2fe;
-  /* indigo 100 */
-  --color-card1: #e0e7ff;
+  --color-indigo-900: #312E81;
+  --color-indigo-800: #3730a3;
+  --color-indigo-700: #4338ca;
+  --color-indigo-600: #4f46e5;
+  --color-indigo-500: #6366f1;
+  --color-indigo-400: #818cf8;
+  --color-indigo-300: #a5b4fc;
+  --color-indigo-200: #c7d2fe;
+  --color-indigo-100: #e0e7ff;
+  --color-indigo-50: #eef2ff;
 
-  /* text colors */
-  /* neutral 800 */
-  --color-text1: #262626;
-  /* neutral 100 */
-  --color-text2: #f5f5f5;
-  /* green 500 */
-  --color-green: #22c55e;
-  /* red 500 */
-  --color-red: #ef4444;
+  --color-neutral-900: #171717;
+  --color-neutral-800: #262626;
+  --color-neutral-700: #404040;
+  --color-neutral-600: #525252;
+  --color-neutral-500: #737373;
+  --color-neutral-400: #a3a3a3;
+  --color-neutral-300: #d4d4d4;
+  --color-neutral-200: #e5e5e5;
+  --color-neutral-100: #f5f5f5;
+  --color-neutral-50: #fafafa;
 
-  /* icon colors */
-  /* same as primary color */
-  --color-icon1: #4d60a5;
-  /* same as card3 color */
-  --color-icon2: #a5b4fc;
-  /* same as text2 color */
-  --color-icon3: #f5f5f5;
+  --color-green-500: #22c55e;
+
+  --color-red-500: #ef4444;
 
   --transition: all 0.3s ease-in-out;
 }
@@ -60,8 +54,8 @@ html {
 }
 
 body {
-  background-color: var(--color-body);
-  color: var(--color-text1);
+  background-color: var(--color-neutral-500);
+  color: var(--color-neutral-800);
   width: 100%;
   margin-inline: auto;
   font-family: "Times New Roman", sans-serif, Helvetica;
@@ -71,15 +65,14 @@ body {
 }
 
 main {
-  background-color: var(--color-main);
+  background-color: var(--color-neutral-50);
   margin-inline: auto;
-  padding: 0rem 5rem;
 }
 
 .container {
   max-width: var(--max-width-desktop);
   margin-inline: auto;
-  padding: 5rem 0rem;
+  padding: 5rem;
 }
 
 h1 {
@@ -117,7 +110,7 @@ a:hover {
 }
 
 .btn {
-  background-color: var(--color-card1);
+  background-color: var(--color-indigo-100);
   color: var(--color-primary);
   margin-inline: auto;
   padding: 1rem 2rem;
@@ -131,7 +124,7 @@ a:hover {
 
 .btn:hover {
   background-color: var(--color-primary);
-  color: var(--color-card1);
+  color: var(--color-indigo-100);
 }
 
 img {
