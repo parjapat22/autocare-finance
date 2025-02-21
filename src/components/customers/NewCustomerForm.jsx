@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-import { addCustomer } from "../../services/apiCustomers";
+import { addEditCustomer } from "../../services/apiCustomers";
 
 import Form from "../../styles/Form";
 import FormRow from "../../styles/FormRow";
@@ -25,7 +25,7 @@ function NewCustomerForm() {
   const queryClient = useQueryClient();
 
   const { isLoading: isAdding, mutate } = useMutation({
-    mutationFn: addCustomer,
+    mutationFn: addEditCustomer,
 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["customers"] });
@@ -123,15 +123,15 @@ function NewCustomerForm() {
       <FormRow>
         {/* type is an HTML attribute! */}
         <Button
-          size="medium"
-          variation="secondary"
+          $size="medium"
+          $variation="secondary"
           type="reset"
           disabled={isAdding}
         >
           Cancel
         </Button>
 
-        <Button size="medium" variation="primary" disabled={isAdding}>
+        <Button $size="medium" $variation="primary" disabled={isAdding}>
           Add Customer
         </Button>
       </FormRow>

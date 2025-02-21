@@ -50,11 +50,13 @@ function CustomerRow({ customer }) {
       <StyledTd>{city}</StyledTd>
       <StyledTd>{postcode}</StyledTd>
       <StyledTd>
-        <a href={invoiceFile} target="_blank" rel="noopener noreferrer">
-          {invoiceFile?.includes("invoices-files")
-            ? invoiceFile.split("files/")[1].split(".")[0]
-            : invoiceFile}
-        </a>
+        {invoiceFile?.includes("invoices-files") ? (
+          <a href={invoiceFile} target="_blank" rel="noopener noreferrer">
+            {invoiceFile.split("files/")[1].split(".")[0]}
+          </a>
+        ) : (
+          invoiceFile
+        )}
       </StyledTd>
       <StyledTd>{notes}</StyledTd>
 

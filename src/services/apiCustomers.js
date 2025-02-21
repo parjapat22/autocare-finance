@@ -14,10 +14,13 @@ export async function getCustomers() {
 }
 
 // add new customer
-export async function addCustomer(newCustomer) {
+export async function addEditCustomer(newCustomer) {
   // create unique file name and file path
+
+  const isFileUploaded = Boolean(newCustomer.invoiceFile);
+
   const fileName = `${Math.floor(Math.random() * 1000)}-${
-    newCustomer.invoiceFile.name
+    newCustomer.invoiceFile?.name
   }`.replaceAll("/", "");
 
   const filePath = `${supabaseUrl}/storage/v1/object/public/invoices-files/${fileName}`;
@@ -25,7 +28,7 @@ export async function addCustomer(newCustomer) {
   // add customer with file name
   const { data, error } = await supabase
     .from("customers")
-    .insert([{ ...newCustomer, invoiceFile: filePath }]);
+    .insert([{ ...newCustomer, invoiceFile: isFileUploaded ? filePath : "" }]);
 
   if (error) {
     console.log(error);
@@ -33,18 +36,20 @@ export async function addCustomer(newCustomer) {
   }
 
   // upload the pdf file
-  const { error: storageError } = await supabase.storage
-    .from("invoices-files")
-    .upload(fileName, newCustomer.invoiceFile);
+  if (isFileUploaded) {
+    const { error: storageError } = await supabase.storage
+      .from("invoices-files")
+      .upload(fileName, newCustomer.invoiceFile);
 
-  // delete customer if there was an error uploading the pdf file
-  if (storageError) {
-    await supabase.from("customers").delete().eq("id", data.id);
+    // delete customer if there was an error uploading the pdf file
+    if (storageError) {
+      await supabase.from("customers").delete().eq("id", data.id);
 
-    console.log(storageError);
-    throw new Error(
-      "Invoice file could not be uploaded and the customer was not created"
-    );
+      console.log(storageError);
+      throw new Error(
+        "Invoice file could not be uploaded and the customer was not created"
+      );
+    }
   }
 
   return data;
