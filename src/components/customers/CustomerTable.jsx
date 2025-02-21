@@ -51,7 +51,7 @@ function CustomerTable() {
           <StyledTh>Address</StyledTh>
           <StyledTh>City</StyledTh>
           <StyledTh>Postcode</StyledTh>
-          <StyledTh>Invoice #</StyledTh>
+          <StyledTh>Invoice</StyledTh>
           <StyledTh>Notes</StyledTh>
           <StyledTh>Actions</StyledTh>
         </tr>

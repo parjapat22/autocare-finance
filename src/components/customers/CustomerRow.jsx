@@ -19,7 +19,7 @@ function CustomerRow({ customer }) {
     address,
     city,
     postcode,
-    invoiceNumber,
+    invoiceFile,
     notes,
   } = customer;
 
@@ -49,7 +49,13 @@ function CustomerRow({ customer }) {
       <StyledTd>{address}</StyledTd>
       <StyledTd>{city}</StyledTd>
       <StyledTd>{postcode}</StyledTd>
-      <StyledTd>{invoiceNumber}</StyledTd>
+      <StyledTd>
+        <a href={invoiceFile} target="_blank" rel="noopener noreferrer">
+          {invoiceFile?.includes("invoices-files")
+            ? invoiceFile.split("files/")[1].split(".")[0]
+            : invoiceFile}
+        </a>
+      </StyledTd>
       <StyledTd>{notes}</StyledTd>
 
       <StyledTd>

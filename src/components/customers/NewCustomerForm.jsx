@@ -23,6 +23,7 @@ function NewCustomerForm() {
   const { errors } = formState;
 
   const queryClient = useQueryClient();
+
   const { isLoading: isAdding, mutate } = useMutation({
     mutationFn: addCustomer,
 
@@ -36,7 +37,7 @@ function NewCustomerForm() {
   });
 
   function onSubmit(data) {
-    mutate(data);
+    mutate({ ...data, invoiceFile: data.invoiceFile[0] });
   }
 
   function onError(errors) {
@@ -111,7 +112,12 @@ function NewCustomerForm() {
       </FormRow>
 
       <FormRow label="Invoice">
-        <FileInput accept=".pdf" id="invoiceNumber" disabled={isAdding} />
+        <FileInput
+          accept=".pdf"
+          id="invoiceFile"
+          disabled={isAdding}
+          {...register("invoiceFile")}
+        />
       </FormRow>
 
       <FormRow>
