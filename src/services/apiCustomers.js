@@ -13,22 +13,43 @@ export async function getCustomers() {
   return data;
 }
 
-// add new customer
+// add / edit new customer
 export async function addEditCustomer(newCustomer) {
-  // create unique file name and file path
+  const isFileUploaded = Boolean(newCustomer.invoiceFile[0]?.name);
 
-  const isFileUploaded = Boolean(newCustomer.invoiceFile);
+  const hasFilePath = Boolean(typeof newCustomer.invoiceFile === "string");
 
+  // create unique file name for new file uploaded
   const fileName = `${Math.floor(Math.random() * 1000)}-${
-    newCustomer.invoiceFile?.name
+    newCustomer.invoiceFile[0]?.name
   }`.replaceAll("/", "");
 
-  const filePath = `${supabaseUrl}/storage/v1/object/public/invoices-files/${fileName}`;
+  // create file path for new file uploaded
+  const filePathNewCust = isFileUploaded
+    ? `${supabaseUrl}/storage/v1/object/public/invoices-files/${fileName}`
+    : "";
 
-  // add customer with file name
-  const { data, error } = await supabase
-    .from("customers")
-    .insert([{ ...newCustomer, invoiceFile: isFileUploaded ? filePath : "" }]);
+  // get file path for existing customer
+  const filePathEditCust = hasFilePath ? newCustomer.invoiceFile : "";
+
+  // get final path for new / existing customer
+  const filePath = isFileUploaded ? filePathNewCust : filePathEditCust;
+
+  let query = supabase.from("customers");
+
+  // add customer
+  if (!newCustomer.id) {
+    query = query.insert([{ ...newCustomer, invoiceFile: filePath }]);
+  }
+
+  // edit customer
+  if (newCustomer.id) {
+    query = query
+      .update({ ...newCustomer, invoiceFile: filePath })
+      .eq("id", newCustomer.id);
+  }
+
+  const { data, error } = await query.select().single();
 
   if (error) {
     console.log(error);
@@ -39,7 +60,7 @@ export async function addEditCustomer(newCustomer) {
   if (isFileUploaded) {
     const { error: storageError } = await supabase.storage
       .from("invoices-files")
-      .upload(fileName, newCustomer.invoiceFile);
+      .upload(fileName, newCustomer.invoiceFile[0]);
 
     // delete customer if there was an error uploading the pdf file
     if (storageError) {

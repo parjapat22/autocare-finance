@@ -1,8 +1,11 @@
+import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import styled from "styled-components";
 
 import { deleteCustomer } from "../../services/apiCustomers";
+import NewCustomerForm from "./NewCustomerForm";
+
 import Button from "../Button";
 
 const StyledTd = styled.td`
@@ -11,8 +14,10 @@ const StyledTd = styled.td`
 `;
 
 function CustomerRow({ customer }) {
+  const [showForm, setShowForm] = useState(false);
+
   const {
-    id: cabinId,
+    id: customerId,
     fullName,
     mobile,
     email,
@@ -42,30 +47,40 @@ function CustomerRow({ customer }) {
   });
 
   return (
-    <tr>
-      <StyledTd>{fullName}</StyledTd>
-      <StyledTd>{mobile}</StyledTd>
-      <StyledTd>{email}</StyledTd>
-      <StyledTd>{address}</StyledTd>
-      <StyledTd>{city}</StyledTd>
-      <StyledTd>{postcode}</StyledTd>
-      <StyledTd>
-        {invoiceFile?.includes("invoices-files") ? (
-          <a href={invoiceFile} target="_blank" rel="noopener noreferrer">
-            {invoiceFile.split("files/")[1].split(".")[0]}
-          </a>
-        ) : (
-          invoiceFile
-        )}
-      </StyledTd>
-      <StyledTd>{notes}</StyledTd>
+    <>
+      <tr>
+        <StyledTd>{fullName}</StyledTd>
+        <StyledTd>{mobile}</StyledTd>
+        <StyledTd>{email}</StyledTd>
+        <StyledTd>{address}</StyledTd>
+        <StyledTd>{city}</StyledTd>
+        <StyledTd>{postcode}</StyledTd>
+        <StyledTd>
+          {invoiceFile?.includes("invoices-files") ? (
+            <a href={invoiceFile} target="_blank" rel="noopener noreferrer">
+              {invoiceFile.split("files/")[1].split(".")[0]}
+            </a>
+          ) : (
+            invoiceFile
+          )}
+        </StyledTd>
+        <StyledTd>{notes}</StyledTd>
 
-      <StyledTd>
-        <Button onClick={() => mutate(cabinId)} disabled={isDeleting}>
-          Delete
-        </Button>
-      </StyledTd>
-    </tr>
+        <StyledTd>
+          <Button onClick={() => setShowForm(!showForm)} disabled={isDeleting}>
+            Edit
+          </Button>
+
+          <Button onClick={() => mutate(customerId)} disabled={isDeleting}>
+            Delete
+          </Button>
+        </StyledTd>
+      </tr>
+
+      <tr>
+        <td>{showForm && <NewCustomerForm customerToEdit={customer} />}</td>
+      </tr>
+    </>
   );
 }
 

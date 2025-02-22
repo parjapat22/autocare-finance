@@ -18,13 +18,20 @@ import Button from "../../styles/Button";
 // 4. reset the input fields
 
 // getValues gives current field value (same as event.target.value)
-function NewCustomerForm() {
-  const { register, handleSubmit, reset, getValues, formState } = useForm();
+function NewCustomerForm({ customerToEdit = {} }) {
+  const { id: editId, ...editValues } = customerToEdit;
+  const isEditSession = Boolean(editId);
+
+  const { register, handleSubmit, reset, getValues, formState } = useForm({
+    defaultValues: isEditSession ? editValues : {},
+  });
+
   const { errors } = formState;
 
   const queryClient = useQueryClient();
 
-  const { isLoading: isAdding, mutate } = useMutation({
+  // add customer
+  const { isLoading: isAdding, mutate: addCustomer } = useMutation({
     mutationFn: addEditCustomer,
 
     onSuccess: () => {
@@ -36,8 +43,27 @@ function NewCustomerForm() {
     onError: (err) => toast.error(err.message),
   });
 
+  // edit customer
+  const { isLoading: isEditing, mutate: editCustomer } = useMutation({
+    mutationFn: addEditCustomer,
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["customers"] });
+      toast.success("Customer edited successfully");
+      reset();
+    },
+
+    onError: (err) => toast.error(err.message),
+  });
+
+  const isWorking = isAdding || isEditing;
+
   function onSubmit(data) {
-    mutate({ ...data, invoiceFile: data.invoiceFile[0] });
+    if (isEditSession) {
+      editCustomer({ ...data, id: editId });
+    } else {
+      addCustomer(data);
+    }
   }
 
   function onError(errors) {
@@ -52,7 +78,7 @@ function NewCustomerForm() {
         <Input
           type="text"
           id="fullName"
-          disabled={isAdding}
+          disabled={isWorking}
           {...register("fullName", { required: "This field is required" })}
         />
       </FormRow>
@@ -61,7 +87,7 @@ function NewCustomerForm() {
         <Input
           type="number"
           id="mobile"
-          disabled={isAdding}
+          disabled={isWorking}
           {...register("mobile", { required: "This field is required" })}
         />
       </FormRow>
@@ -70,7 +96,7 @@ function NewCustomerForm() {
         <Input
           type="text"
           id="email"
-          disabled={isAdding}
+          disabled={isWorking}
           {...register("email", { required: "This field is required" })}
         />
       </FormRow>
@@ -79,7 +105,7 @@ function NewCustomerForm() {
         <Textarea
           type="text"
           id="address"
-          disabled={isAdding}
+          disabled={isWorking}
           {...register("address")}
         />
       </FormRow>
@@ -88,7 +114,7 @@ function NewCustomerForm() {
         <Input
           type="text"
           id="city"
-          disabled={isAdding}
+          disabled={isWorking}
           {...register("city", { required: "This field is required" })}
         />
       </FormRow>
@@ -97,7 +123,7 @@ function NewCustomerForm() {
         <Input
           type="number"
           id="postcode"
-          disabled={isAdding}
+          disabled={isWorking}
           {...register("postcode", { required: "This field is required" })}
         />
       </FormRow>
@@ -106,7 +132,7 @@ function NewCustomerForm() {
         <Input
           type="text"
           id="notes"
-          disabled={isAdding}
+          disabled={isWorking}
           {...register("notes")}
         />
       </FormRow>
@@ -115,7 +141,7 @@ function NewCustomerForm() {
         <FileInput
           accept=".pdf"
           id="invoiceFile"
-          disabled={isAdding}
+          disabled={isWorking}
           {...register("invoiceFile")}
         />
       </FormRow>
@@ -126,13 +152,13 @@ function NewCustomerForm() {
           $size="medium"
           $variation="secondary"
           type="reset"
-          disabled={isAdding}
+          disabled={isWorking}
         >
           Cancel
         </Button>
 
-        <Button $size="medium" $variation="primary" disabled={isAdding}>
-          Add Customer
+        <Button $size="medium" $variation="primary" disabled={isWorking}>
+          {isEditSession ? "Edit customer" : "Add customer"}
         </Button>
       </FormRow>
     </Form>
