@@ -1,7 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
 
-import { getCustomers } from "../../services/apiCustomers";
+import { useCustomers } from "./useCustomers";
 import CustomerRow from "./CustomerRow";
 
 import Spinner from "../../styles/Spinner";
@@ -30,14 +29,17 @@ const StyledTh = styled.th`
 // 1. fetch data from database - see services/apiCustomers.js
 // 2. display data on interface
 function CustomerTable() {
-  const {
-    isLoading,
-    data: customers,
-    error,
-  } = useQuery({
-    queryKey: ["customers"],
-    queryFn: getCustomers,
-  });
+  // moved to custom hook - useCustomers.js
+  // const {
+  //   isLoading,
+  //   data: customers,
+  //   error,
+  // } = useQuery({
+  //   queryKey: ["customers"],
+  //   queryFn: getCustomers,
+  // });
+
+  const { isLoading, error, customers } = useCustomers();
 
   if (isLoading) return <Spinner />;
 

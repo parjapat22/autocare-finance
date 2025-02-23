@@ -1,9 +1,7 @@
 import { useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import toast from "react-hot-toast";
 import styled from "styled-components";
 
-import { deleteCustomer } from "../../services/apiCustomers";
+import { useDeleteCustomer } from "./useDeleteCustomer";
 import NewCustomerForm from "./NewCustomerForm";
 
 import Button from "../Button";
@@ -15,6 +13,8 @@ const StyledTd = styled.td`
 
 function CustomerRow({ customer }) {
   const [showForm, setShowForm] = useState(false);
+  // custom hook
+  const { isDeleting, deleteCustomer } = useDeleteCustomer();
 
   const {
     id: customerId,
@@ -27,24 +27,6 @@ function CustomerRow({ customer }) {
     invoiceFile,
     notes,
   } = customer;
-
-  // this hook is used to re-fetch the data upon successfull delete action
-  const queryClient = useQueryClient();
-
-  // delete a customer
-  const { isLoading: isDeleting, mutate } = useMutation({
-    mutationFn: (id) => deleteCustomer(id),
-    // same as above due to inputting same value (id)
-    // mutationFn: deleteCustomer,
-
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["customers"] });
-
-      toast.success("Cabin deleted successfully");
-    },
-
-    onError: (err) => toast.error(err.message),
-  });
 
   return (
     <>
@@ -64,14 +46,17 @@ function CustomerRow({ customer }) {
             invoiceFile
           )}
         </StyledTd>
-        <StyledTd>{notes}</StyledTd>
+        <StyledTd>{notes.trim() ? notes : <span>&mdash;</span>}</StyledTd>
 
         <StyledTd>
           <Button onClick={() => setShowForm(!showForm)} disabled={isDeleting}>
             Edit
           </Button>
 
-          <Button onClick={() => mutate(customerId)} disabled={isDeleting}>
+          <Button
+            onClick={() => deleteCustomer(customerId)}
+            disabled={isDeleting}
+          >
             Delete
           </Button>
         </StyledTd>

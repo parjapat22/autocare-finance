@@ -1,8 +1,7 @@
 import { useForm } from "react-hook-form";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import toast from "react-hot-toast";
 
-import { addEditCustomer } from "../../services/apiCustomers";
+import { useAddCustomer } from "./useAddCustomer";
+import { useEditCustomer } from "./useEditCustomer";
 
 import Form from "../../styles/Form";
 import FormRow from "../../styles/FormRow";
@@ -14,55 +13,31 @@ import Button from "../../styles/Button";
 // useForm hook
 // 1. register the input fields
 // 2. add onSubmit function to form element
-// 3. useMutation hook to handle form data
-// 4. reset the input fields
+// 3. useMutation hook to handle the form data
+// 4. useQueryClient to validate the query and success / error state
+// 5. reset the input fields
+// 6. use formState to handle the errors
 
-// getValues gives current field value (same as event.target.value)
 function NewCustomerForm({ customerToEdit = {} }) {
+  // custom hooks
+  const { isAdding, addCustomer } = useAddCustomer();
+  const { isEditing, editCustomer } = useEditCustomer();
+  const isWorking = isAdding || isEditing;
+
   const { id: editId, ...editValues } = customerToEdit;
   const isEditSession = Boolean(editId);
 
+  // getValues gives current field value (same as event.target.value)
   const { register, handleSubmit, reset, getValues, formState } = useForm({
     defaultValues: isEditSession ? editValues : {},
   });
-
   const { errors } = formState;
-
-  const queryClient = useQueryClient();
-
-  // add customer
-  const { isLoading: isAdding, mutate: addCustomer } = useMutation({
-    mutationFn: addEditCustomer,
-
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["customers"] });
-      toast.success("New customer added successfully");
-      reset();
-    },
-
-    onError: (err) => toast.error(err.message),
-  });
-
-  // edit customer
-  const { isLoading: isEditing, mutate: editCustomer } = useMutation({
-    mutationFn: addEditCustomer,
-
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["customers"] });
-      toast.success("Customer edited successfully");
-      reset();
-    },
-
-    onError: (err) => toast.error(err.message),
-  });
-
-  const isWorking = isAdding || isEditing;
 
   function onSubmit(data) {
     if (isEditSession) {
-      editCustomer({ ...data, id: editId });
+      editCustomer({ ...data, id: editId }, { onSuccess: () => reset() });
     } else {
-      addCustomer(data);
+      addCustomer(data, { onSuccess: () => reset() });
     }
   }
 
@@ -137,7 +112,7 @@ function NewCustomerForm({ customerToEdit = {} }) {
         />
       </FormRow>
 
-      <FormRow label="Invoice">
+      <FormRow label="Invoice" error={errors?.invoiceFile?.message}>
         <FileInput
           accept=".pdf"
           id="invoiceFile"
@@ -147,7 +122,7 @@ function NewCustomerForm({ customerToEdit = {} }) {
       </FormRow>
 
       <FormRow>
-        {/* type is an HTML attribute! */}
+        {/* type = "reset" is an HTML attribute! */}
         <Button
           $size="medium"
           $variation="secondary"
