@@ -1,10 +1,12 @@
 import { useState } from "react";
 import styled from "styled-components";
 
+import { useAddCustomer } from "./useAddCustomer";
 import { useDeleteCustomer } from "./useDeleteCustomer";
 import NewCustomerForm from "./NewCustomerForm";
 
 import Button from "../Button";
+import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
 
 const StyledTd = styled.td`
   padding: 0.5rem;
@@ -13,7 +15,8 @@ const StyledTd = styled.td`
 
 function CustomerRow({ customer }) {
   const [showForm, setShowForm] = useState(false);
-  // custom hook
+  // custom hooks
+  const { isAdding, addCustomer } = useAddCustomer();
   const { isDeleting, deleteCustomer } = useDeleteCustomer();
 
   const {
@@ -27,6 +30,19 @@ function CustomerRow({ customer }) {
     invoiceFile,
     notes,
   } = customer;
+
+  function handleDuplicate() {
+    addCustomer({
+      fullName: `copy of ${customer.fullName}`,
+      mobile,
+      email,
+      address,
+      city,
+      postcode,
+      invoiceFile,
+      notes,
+    });
+  }
 
   return (
     <>
@@ -48,16 +64,29 @@ function CustomerRow({ customer }) {
         </StyledTd>
         <StyledTd>{notes.trim() ? notes : <span>&mdash;</span>}</StyledTd>
 
+        {/* copy customer */}
         <StyledTd>
-          <Button onClick={() => setShowForm(!showForm)} disabled={isDeleting}>
-            Edit
+          <Button
+            onClick={() => handleDuplicate()}
+            disabled={isAdding || isDeleting}
+          >
+            <HiSquare2Stack />
           </Button>
 
+          {/* edit customer */}
+          <Button
+            onClick={() => setShowForm(!showForm)}
+            disabled={isAdding || isDeleting}
+          >
+            <HiPencil />
+          </Button>
+
+          {/* delete customer */}
           <Button
             onClick={() => deleteCustomer(customerId)}
-            disabled={isDeleting}
+            disabled={isAdding || isDeleting}
           >
-            Delete
+            <HiTrash />
           </Button>
         </StyledTd>
       </tr>

@@ -22,7 +22,6 @@ function NewCustomerForm({ customerToEdit = {} }) {
   // custom hooks
   const { isAdding, addCustomer } = useAddCustomer();
   const { isEditing, editCustomer } = useEditCustomer();
-  const isWorking = isAdding || isEditing;
 
   const { id: editId, ...editValues } = customerToEdit;
   const isEditSession = Boolean(editId);
@@ -53,7 +52,7 @@ function NewCustomerForm({ customerToEdit = {} }) {
         <Input
           type="text"
           id="fullName"
-          disabled={isWorking}
+          disabled={isAdding || isEditing}
           {...register("fullName", { required: "This field is required" })}
         />
       </FormRow>
@@ -62,7 +61,7 @@ function NewCustomerForm({ customerToEdit = {} }) {
         <Input
           type="number"
           id="mobile"
-          disabled={isWorking}
+          disabled={isAdding || isEditing}
           {...register("mobile", { required: "This field is required" })}
         />
       </FormRow>
@@ -71,7 +70,7 @@ function NewCustomerForm({ customerToEdit = {} }) {
         <Input
           type="text"
           id="email"
-          disabled={isWorking}
+          disabled={isAdding || isEditing}
           {...register("email", { required: "This field is required" })}
         />
       </FormRow>
@@ -80,7 +79,7 @@ function NewCustomerForm({ customerToEdit = {} }) {
         <Textarea
           type="text"
           id="address"
-          disabled={isWorking}
+          disabled={isAdding || isEditing}
           {...register("address")}
         />
       </FormRow>
@@ -89,7 +88,7 @@ function NewCustomerForm({ customerToEdit = {} }) {
         <Input
           type="text"
           id="city"
-          disabled={isWorking}
+          disabled={isAdding || isEditing}
           {...register("city", { required: "This field is required" })}
         />
       </FormRow>
@@ -98,7 +97,7 @@ function NewCustomerForm({ customerToEdit = {} }) {
         <Input
           type="number"
           id="postcode"
-          disabled={isWorking}
+          disabled={isAdding || isEditing}
           {...register("postcode", { required: "This field is required" })}
         />
       </FormRow>
@@ -107,7 +106,7 @@ function NewCustomerForm({ customerToEdit = {} }) {
         <Input
           type="text"
           id="notes"
-          disabled={isWorking}
+          disabled={isAdding || isEditing}
           {...register("notes")}
         />
       </FormRow>
@@ -116,7 +115,7 @@ function NewCustomerForm({ customerToEdit = {} }) {
         <FileInput
           accept=".pdf"
           id="invoiceFile"
-          disabled={isWorking}
+          disabled={isAdding || isEditing}
           {...register("invoiceFile")}
         />
       </FormRow>
@@ -127,12 +126,16 @@ function NewCustomerForm({ customerToEdit = {} }) {
           $size="medium"
           $variation="secondary"
           type="reset"
-          disabled={isWorking}
+          disabled={isAdding || isEditing}
         >
           Cancel
         </Button>
 
-        <Button $size="medium" $variation="primary" disabled={isWorking}>
+        <Button
+          $size="medium"
+          $variation="primary"
+          disabled={isAdding || isEditing}
+        >
           {isEditSession ? "Edit customer" : "Add customer"}
         </Button>
       </FormRow>
