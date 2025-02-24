@@ -7,8 +7,8 @@ import { getCustomers } from "../../services/apiCustomers";
 export function useCustomers() {
   const {
     isLoading,
-    data: customers,
     error,
+    data: customers,
   } = useQuery({
     queryKey: ["customers"],
     queryFn: getCustomers,

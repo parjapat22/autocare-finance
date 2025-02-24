@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { HiHome } from "react-icons/hi2";
 import { HiUserGroup } from "react-icons/hi";
+import { HiClipboardDocumentList } from "react-icons/hi2";
 import { FaFileInvoiceDollar } from "react-icons/fa";
 
 const StyledUl = styled.ul`
@@ -66,6 +67,13 @@ function NavMenu() {
           <StyledNavLink to="/customers">
             <HiUserGroup />
             <span>Customers</span>
+          </StyledNavLink>
+        </StyledLi>
+
+        <StyledLi>
+          <StyledNavLink to="/prices">
+            <HiClipboardDocumentList />
+            <span>Prices</span>
           </StyledNavLink>
         </StyledLi>
 

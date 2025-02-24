@@ -8,6 +8,7 @@ import GlobalStyles from "./styles/GlobalStyles";
 import AppLayout from "./ui/AppLayout";
 import Dashboard from "./pages/Dashboard";
 import Customers from "./pages/Customers";
+import Prices from "./pages/Prices";
 import Invoices from "./pages/Invoices";
 
 const queryClient = new QueryClient({
@@ -28,6 +29,7 @@ function App() {
             <Route path="dashboard" element={<Dashboard />} />
 
             <Route path="customers" element={<Customers />} />
+            <Route path="prices" element={<Prices />} />
             <Route path="invoices" element={<Invoices />} />
           </Route>
 
