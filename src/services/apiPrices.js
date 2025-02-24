@@ -12,7 +12,7 @@ export async function getPrices() {
 }
 
 // We expect a new price object that looks like {property name: newValue}
-export async function updateSetting(newSetting) {
+export async function updatePrices(newSetting) {
   const { data, error } = await supabase
     .from("prices")
     .update(newSetting)

@@ -1,7 +1,10 @@
-- create invoice
-- download invoice pdf
-- save invoices in database
-- show invoices in app table
+- rate list
+- footer (copyright, developed by)
+- invoices table (href preview attached pdf)
+- invoice form
+- create invoice pdf
+- preview invoice
+- save pdf in database
 
 # Autocare Finance Web App
 

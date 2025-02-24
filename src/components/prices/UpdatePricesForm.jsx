@@ -1,4 +1,5 @@
 import { usePrices } from "./usePrices";
+import { useUpdatePrices } from "./useUpdatePrices";
 
 import Form from "../../styles/Form";
 import FormRow from "../../styles/FormRow";
@@ -12,12 +13,30 @@ function UpdatePricesForm() {
     prices: { itemName, itemDescription, unitPrice } = {},
   } = usePrices();
 
+  const { isUpdating, updatePrices } = useUpdatePrices();
+
   if (isLoading) return <Spinner />;
+
+  function handleUpdate(e, fieldName) {
+    const { value } = e.target;
+
+    if (!value) return;
+
+    updatePrices({ [fieldName]: value });
+  }
 
   return (
     <Form type="regular">
       <FormRow label="Item Name">
-        <Input type="text" id="itemName" defaultValue={itemName} />
+        <Input
+          type="text"
+          id="itemName"
+          defaultValue={itemName}
+          disabled={isUpdating}
+          // pass field name along with e
+          // field name can be anything
+          onBlur={(e) => handleUpdate(e, "itemName")}
+        />
       </FormRow>
 
       <FormRow label="Item Description">
@@ -25,11 +44,19 @@ function UpdatePricesForm() {
           type="text"
           id="itemDescription"
           defaultValue={itemDescription}
+          disabled={isUpdating}
+          onBlur={(e) => handleUpdate(e, "itemDescription")}
         />
       </FormRow>
 
       <FormRow label="Unit Price">
-        <Input type="number" id="unitPrice" defaultValue={unitPrice} />
+        <Input
+          type="number"
+          id="unitPrice"
+          defaultValue={unitPrice}
+          disabled={isUpdating}
+          onBlur={(e) => handleUpdate(e, "unitPrice")}
+        />
       </FormRow>
     </Form>
   );
