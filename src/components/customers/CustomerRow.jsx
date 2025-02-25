@@ -74,7 +74,7 @@ function CustomerRow({ customer }) {
 
         <Modal>
           {/* edit customer */}
-          <Modal.Open openModal="edit">
+          <Modal.Open modalName="edit">
             <Button disabled={isAdding || isDeleting}>
               <HiPencil />
             </Button>
@@ -85,13 +85,13 @@ function CustomerRow({ customer }) {
           </Modal.Window>
 
           {/* delete customer */}
-          <Modal.Open>
+          <Modal.Open modalName="delete">
             <Button disabled={isAdding || isDeleting}>
               <HiTrash />
             </Button>
           </Modal.Open>
 
-          <Modal.Window>
+          <Modal.Window windowName="delete">
             <ConfirmDelete
               resourceName="customer"
               disabled={isDeleting}

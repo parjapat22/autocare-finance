@@ -8,7 +8,7 @@ function AddCustomer() {
   return (
     <div>
       <Modal>
-        <Modal.Open openModal="customer-form">
+        <Modal.Open modalName="customer-form">
           <Button>Add new customer</Button>
         </Modal.Open>
 

@@ -52,36 +52,37 @@ const ModalContext = createContext();
 
 // 2. create parent component
 function Modal({ children }) {
-  const [openName, setOpenName] = useState("");
+  const [openModal, setOpenModal] = useState("");
 
-  const open = setOpenName;
-  const close = () => setOpenName("");
+  const open = setOpenModal;
+  const close = () => setOpenModal("");
 
   return (
-    <ModalContext.Provider value={{ openName, open, close }}>
+    <ModalContext.Provider value={{ openModal, open, close }}>
       {children}
     </ModalContext.Provider>
   );
 }
 
 // 3. create child components to implement the common task using useContext
-function Open({ children, openModal }) {
+function Open({ children, modalName }) {
   const { open } = useContext(ModalContext);
 
   // clone element clones the component and add properties to it
-  return cloneElement(children, { onClick: () => open(openModal) });
+  return cloneElement(children, { onClick: () => open(modalName) });
 }
 
 function Window({ children, windowName }) {
-  const { openName, close } = useContext(ModalContext);
-  const ref = useOutsideClick(close);
+  const { openModal, close } = useContext(ModalContext);
+  // const ref = useOutsideClick(close);
 
-  if (windowName !== openName) return null;
+  if (windowName !== openModal) return null;
 
   // create portal puts component on top of dom tree while at the correct position in component tree
   return createPortal(
     <Overlay>
-      <StyledModal ref={ref}>
+      {/* <StyledModal ref={ref}> */}
+      <StyledModal>
         <Button onClick={close}>
           <HiXMark />
         </Button>
