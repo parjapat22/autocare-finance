@@ -35,6 +35,8 @@ const GlobalStyles = createGlobalStyle`
 
   --color-red-500: #ef4444;
 
+  --color-backdrop: rgba(255, 255, 255, 0.1);
+
   --transition: all 0.3s ease-in-out;
 }
 

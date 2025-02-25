@@ -18,7 +18,7 @@ import Button from "../../styles/Button";
 // 5. reset the input fields
 // 6. use formState to handle the errors
 
-function NewCustomerForm({ customerToEdit = {} }) {
+function NewCustomerForm({ customerToEdit = {}, onCloseModal }) {
   // custom hooks
   const { isAdding, addCustomer } = useAddCustomer();
   const { isEditing, editCustomer } = useEditCustomer();
@@ -34,9 +34,22 @@ function NewCustomerForm({ customerToEdit = {} }) {
 
   function onSubmit(data) {
     if (isEditSession) {
-      editCustomer({ ...data, id: editId }, { onSuccess: () => reset() });
+      editCustomer(
+        { ...data, id: editId },
+        {
+          onSuccess: () => {
+            reset();
+            onCloseModal?.();
+          },
+        }
+      );
     } else {
-      addCustomer(data, { onSuccess: () => reset() });
+      addCustomer(data, {
+        onSuccess: () => {
+          reset();
+          onCloseModal?.();
+        },
+      });
     }
   }
 
@@ -47,7 +60,10 @@ function NewCustomerForm({ customerToEdit = {} }) {
   }
 
   return (
-    <Form type="regular" onSubmit={handleSubmit(onSubmit, onError)}>
+    <Form
+      type={onCloseModal ? "modal" : "regular"}
+      onSubmit={handleSubmit(onSubmit, onError)}
+    >
       <FormRow label="Customer name" error={errors?.fullName?.message}>
         <Input
           type="text"
@@ -127,6 +143,7 @@ function NewCustomerForm({ customerToEdit = {} }) {
           $variation="secondary"
           type="reset"
           disabled={isAdding || isEditing}
+          onClick={() => onCloseModal?.()}
         >
           Cancel
         </Button>
