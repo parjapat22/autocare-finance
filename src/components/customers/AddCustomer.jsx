@@ -6,15 +6,17 @@ import Modal from "../../styles/Modal";
 // after compound component - Modal
 function AddCustomer() {
   return (
-    <Modal>
-      <Modal.Open openModal="customer-form">
-        <Button>Add new customer</Button>
-      </Modal.Open>
+    <div>
+      <Modal>
+        <Modal.Open openModal="customer-form">
+          <Button>Add new customer</Button>
+        </Modal.Open>
 
-      <Modal.Window windowName="customer-form">
-        <NewCustomerForm />
-      </Modal.Window>
-    </Modal>
+        <Modal.Window windowName="customer-form">
+          <NewCustomerForm />
+        </Modal.Window>
+      </Modal>
+    </div>
   );
 }
 

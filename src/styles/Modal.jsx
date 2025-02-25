@@ -1,9 +1,9 @@
 import { useState, createContext, useContext, cloneElement } from "react";
 import { createPortal } from "react-dom";
+import styled from "styled-components";
 
 import { useOutsideClick } from "../hooks/useOutsideClick";
 
-import styled from "styled-components";
 import { HiXMark } from "react-icons/hi2";
 
 const StyledModal = styled.div`
