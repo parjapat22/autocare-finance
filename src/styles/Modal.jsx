@@ -1,6 +1,8 @@
 import { useState, createContext, useContext, cloneElement } from "react";
 import { createPortal } from "react-dom";
 
+import { useOutsideClick } from "../hooks/useOutsideClick";
+
 import styled from "styled-components";
 import { HiXMark } from "react-icons/hi2";
 
@@ -72,13 +74,14 @@ function Open({ children, openModal }) {
 
 function Window({ children, windowName }) {
   const { openName, close } = useContext(ModalContext);
+  const ref = useOutsideClick(close);
 
   if (windowName !== openName) return null;
 
   // create portal puts component on top of dom tree while at the correct position in component tree
   return createPortal(
     <Overlay>
-      <StyledModal>
+      <StyledModal ref={ref}>
         <Button onClick={close}>
           <HiXMark />
         </Button>
