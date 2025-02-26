@@ -1,7 +1,9 @@
 import supabase from "./supabase";
 
+// 1. fetch data from database
+// 2. display data on interface - see prices/PricesTable.jsx
 export async function getPrices() {
-  const { data, error } = await supabase.from("prices").select("*").single();
+  const { data, error } = await supabase.from("prices").select("*");
 
   if (error) {
     console.error(error);
@@ -11,12 +13,11 @@ export async function getPrices() {
   return data;
 }
 
-// We expect a new price object that looks like {property name: newValue}
-export async function updatePrices(newSetting) {
+// edit new price item
+export async function updatePrice(newItem) {
   const { data, error } = await supabase
     .from("prices")
-    .update(newSetting)
-    // There is only ONE row of settings, and it has the ID=1, and so this is the updated one
+    .update(newItem)
     .eq("id", 1)
     .single();
 

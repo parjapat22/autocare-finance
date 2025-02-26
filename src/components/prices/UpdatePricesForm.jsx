@@ -1,5 +1,5 @@
 import { usePrices } from "./usePrices";
-import { useUpdatePrices } from "./useUpdatePrices";
+import { useUpdatePrice } from "./useUpdatePrice";
 
 import Form from "../../styles/Form";
 import FormRow from "../../styles/FormRow";
@@ -13,16 +13,16 @@ function UpdatePricesForm() {
     prices: { itemName, itemDescription, unitPrice } = {},
   } = usePrices();
 
-  const { isUpdating, updatePrices } = useUpdatePrices();
+  const { isUpdating, updatePrice } = useUpdatePrice();
 
-  if (isLoading) return <Spinner />;
+  // if (isLoading) return <Spinner />;
 
   function handleUpdate(e, fieldName) {
     const { value } = e.target;
 
     if (!value) return;
 
-    updatePrices({ [fieldName]: value });
+    updatePrice({ [fieldName]: value });
   }
 
   return (

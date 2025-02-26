@@ -1,7 +1,7 @@
 import supabase, { supabaseUrl } from "./supabase";
 
 // 1. fetch data from database
-// 2. display data on interface - see customers/CustomerTable.jsx
+// 2. display data on interface - see customers/CustomersTable.jsx
 export async function getCustomers() {
   const { data, error } = await supabase.from("customers").select("*");
 

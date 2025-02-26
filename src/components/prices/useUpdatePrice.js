@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { updatePrices as updatePricesApi } from "../../services/apiPrices";
+import { updatePrice as updatePriceApi } from "../../services/apiPrices";
 
-export function useUpdatePrices() {
+export function useUpdatePrice() {
   const queryClient = useQueryClient();
 
-  const { isLoading: isUpdating, mutate: updatePrices } = useMutation({
-    mutationFn: updatePricesApi,
+  const { isLoading: isUpdating, mutate: updatePrice } = useMutation({
+    mutationFn: updatePriceApi,
 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["prices"] });
@@ -16,5 +16,5 @@ export function useUpdatePrices() {
     onError: (err) => toast.error(err.message),
   });
 
-  return { isUpdating, updatePrices };
+  return { isUpdating, updatePrice };
 }

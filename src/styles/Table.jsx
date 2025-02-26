@@ -38,9 +38,8 @@ const StyledTd = styled.td`
   text-align: center;
 `;
 
-const Empty = styled.p`
-  text-align: center;
-  margin: 2rem;
+const Empty = styled.tbody`
+  font-size: inherit;
 `;
 
 // 1. create a context
@@ -61,7 +60,14 @@ function Header({ children }) {
 }
 
 function Body({ data, render }) {
-  if (!data.length) return <Empty>No data to display</Empty>;
+  if (!data.length)
+    return (
+      <Empty>
+        <tr>
+          <td>No data to display</td>
+        </tr>
+      </Empty>
+    );
 
   return <StyledBody>{data.map(render)}</StyledBody>;
 }
