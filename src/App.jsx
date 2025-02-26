@@ -29,8 +29,8 @@ function App() {
             <Route path="dashboard" element={<Dashboard />} />
 
             <Route path="customers" element={<Customers />} />
-            <Route path="prices" element={<Prices />} />
             <Route path="invoices" element={<Invoices />} />
+            <Route path="prices" element={<Prices />} />
           </Route>
 
           {/* <Route path="*" element={<PageNotFound />} /> */}
@@ -42,8 +42,8 @@ function App() {
         gutter={10}
         containerStyle={{ margin: "10px" }}
         toastOptions={{
-          success: { duration: 5000 },
-          error: { duration: 5000 },
+          success: { duration: 3000 },
+          error: { duration: 4000 },
 
           style: {
             fontSize: "16px",

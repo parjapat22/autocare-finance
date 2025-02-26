@@ -34,6 +34,8 @@ HTML, CSS - styled components, React.js, Supabase
 - empty table - no data to display
 - table border radius
 - email and mobile validation pending
+- date format
+- currency format
 
 ## Upcoming Features
 

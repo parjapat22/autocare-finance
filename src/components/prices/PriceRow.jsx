@@ -17,7 +17,7 @@ function PriceRow({ item }) {
     <Table.Row>
       <Table.Td>{itemName}</Table.Td>
       <Table.Td>{description}</Table.Td>
-      <Table.Td>{unitPrice}</Table.Td>
+      <Table.Td>${unitPrice}</Table.Td>
       <Table.Td>{notes.trim() ? notes : <span>&mdash;</span>}</Table.Td>
 
       <Table.Td>

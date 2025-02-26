@@ -71,16 +71,16 @@ function NavMenu() {
         </StyledLi>
 
         <StyledLi>
-          <StyledNavLink to="/prices">
-            <HiClipboardDocumentList />
-            <span>Prices</span>
+          <StyledNavLink to="/invoices">
+            <FaFileInvoiceDollar />
+            <span>Invoices</span>
           </StyledNavLink>
         </StyledLi>
 
         <StyledLi>
-          <StyledNavLink to="/invoices">
-            <FaFileInvoiceDollar />
-            <span>Invoices</span>
+          <StyledNavLink to="/prices">
+            <HiClipboardDocumentList />
+            <span>Prices</span>
           </StyledNavLink>
         </StyledLi>
       </StyledUl>
