@@ -13,17 +13,20 @@ export async function getPrices() {
   return data;
 }
 
-// edit new price item
-export async function updatePrice(newItem) {
-  const { data, error } = await supabase
-    .from("prices")
-    .update(newItem)
-    .eq("id", 1)
-    .single();
+// add / edit new price item
+export async function addEditPrice(newItem) {
+  let query = supabase.from("prices");
+
+  // add price item
+  if (!newItem.id) {
+    query = query.insert([{ ...newItem }]);
+  }
+
+  const { data, error } = await query.select().single();
 
   if (error) {
-    console.error(error);
-    throw new Error("Rate list could not be updated");
+    console.log(error);
+    throw new Error("New price item could not be added");
   }
 
   return data;

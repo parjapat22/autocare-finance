@@ -1,5 +1,6 @@
 import { usePrices } from "./usePrices";
 import PriceRow from "./PriceRow";
+import AddPriceItem from "./AddPriceItem";
 
 import Table from "../../styles/Table";
 import Spinner from "../../styles/Spinner";
@@ -29,6 +30,8 @@ function PricesTable() {
           render={(item) => <PriceRow item={item} key={item.id} />}
         />
       </Table>
+
+      <AddPriceItem />
     </>
   );
 }
