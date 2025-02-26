@@ -79,7 +79,7 @@ function NewPriceItemForm({ priceToEdit = {}, onCloseModal }) {
           type="text"
           id="description"
           disabled={isAdding || isUpdating}
-          {...register("description")}
+          {...register("description", { required: "This field is required" })}
         />
       </FormRow>
 

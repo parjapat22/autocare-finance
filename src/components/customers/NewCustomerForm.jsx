@@ -18,6 +18,7 @@ import Button from "../../styles/Button";
 // 5. reset the input fields
 // 6. use formState to handle the errors
 
+// onCloseModal is coming from Modal.jsx
 function NewCustomerForm({ customerToEdit = {}, onCloseModal }) {
   // custom hooks
   const { isAdding, addCustomer } = useAddCustomer();
@@ -88,7 +89,7 @@ function NewCustomerForm({ customerToEdit = {}, onCloseModal }) {
           type="text"
           id="email"
           disabled={isAdding || isEditing}
-          {...register("email", { required: "This field is required" })}
+          {...register("email")}
         />
       </FormRow>
 
@@ -115,7 +116,7 @@ function NewCustomerForm({ customerToEdit = {}, onCloseModal }) {
           type="number"
           id="postcode"
           disabled={isAdding || isEditing}
-          {...register("postcode", { required: "This field is required" })}
+          {...register("postcode")}
         />
       </FormRow>
 

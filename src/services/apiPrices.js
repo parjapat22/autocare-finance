@@ -36,3 +36,13 @@ export async function addEditPrice(newItem) {
 
   return data;
 }
+
+// delete price item row
+export async function deletePrice(id) {
+  const { error } = await supabase.from("prices").delete().eq("id", id);
+
+  if (error) {
+    console.log(error);
+    throw new Error("Item could not be deleted");
+  }
+}

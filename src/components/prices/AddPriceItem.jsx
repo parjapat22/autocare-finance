@@ -3,7 +3,6 @@ import NewPriceItemForm from "./NewPriceItemForm";
 import Button from "../Button";
 import Modal from "../../styles/Modal";
 
-// after compound component - Modal
 function AddPriceItem() {
   return (
     <div>
