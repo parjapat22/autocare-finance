@@ -1,18 +1,13 @@
-import styled from "styled-components";
-
 import { useAddCustomer } from "./useAddCustomer";
 import { useDeleteCustomer } from "./useDeleteCustomer";
 import NewCustomerForm from "./NewCustomerForm";
 
-import Button from "../Button";
+import Table from "../../styles/Table";
 import Modal from "../../styles/Modal";
 import ConfirmDelete from "../../styles/ConfirmDelete";
-import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
+import Button from "../Button";
 
-const StyledTd = styled.td`
-  padding: 0.5rem;
-  text-align: center;
-`;
+import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
 
 function CustomerRow({ customer }) {
   // custom hooks
@@ -45,14 +40,15 @@ function CustomerRow({ customer }) {
   }
 
   return (
-    <tr>
-      <StyledTd>{fullName}</StyledTd>
-      <StyledTd>{mobile}</StyledTd>
-      <StyledTd>{email}</StyledTd>
-      <StyledTd>{address}</StyledTd>
-      <StyledTd>{city}</StyledTd>
-      <StyledTd>{postcode}</StyledTd>
-      <StyledTd>
+    <Table.Row>
+      <Table.Td>{fullName}</Table.Td>
+      <Table.Td>{mobile}</Table.Td>
+      <Table.Td>{email}</Table.Td>
+      <Table.Td>{address}</Table.Td>
+      <Table.Td>{city}</Table.Td>
+      <Table.Td>{postcode}</Table.Td>
+
+      <Table.Td>
         {invoiceFile?.includes("invoices-files") ? (
           <a href={invoiceFile} target="_blank" rel="noopener noreferrer">
             {invoiceFile.split("files/")[1].split(".")[0]}
@@ -60,11 +56,13 @@ function CustomerRow({ customer }) {
         ) : (
           invoiceFile
         )}
-      </StyledTd>
-      <StyledTd>{notes.trim() ? notes : <span>&mdash;</span>}</StyledTd>
+      </Table.Td>
 
-      {/* copy customer */}
-      <StyledTd>
+      <Table.Td>{notes.trim() ? notes : <span>&mdash;</span>}</Table.Td>
+
+      {/* actions column */}
+      <Table.Td>
+        {/* copy customer */}
         <Button
           onClick={() => handleDuplicate()}
           disabled={isAdding || isDeleting}
@@ -99,8 +97,8 @@ function CustomerRow({ customer }) {
             />
           </Modal.Window>
         </Modal>
-      </StyledTd>
-    </tr>
+      </Table.Td>
+    </Table.Row>
   );
 }
 
