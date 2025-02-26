@@ -36,6 +36,7 @@ function NewCustomerForm({ customerToEdit = {}, onCloseModal }) {
     if (isEditSession) {
       editCustomer(
         { ...data, id: editId },
+
         {
           onSuccess: () => {
             reset();

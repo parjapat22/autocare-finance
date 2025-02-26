@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 
 import { useAddPrice } from "./useAddPrice";
+import { useUpdatePrice } from "./useUpdatePrice";
 
 import Form from "../../styles/Form";
 import FormRow from "../../styles/FormRow";
@@ -17,21 +18,40 @@ import Button from "../../styles/Button";
 // 6. use formState to handle the errors
 
 // onCloseModal is coming from Modal.jsx
-function NewPriceItemForm({ onCloseModal }) {
+function NewPriceItemForm({ priceToEdit = {}, onCloseModal }) {
   // custom hooks
   const { isAdding, addPrice } = useAddPrice();
+  const { isUpdating, updatePrice } = useUpdatePrice();
+
+  const { id: editId, ...editValues } = priceToEdit;
+  const isEditSession = Boolean(editId);
 
   // getValues gives current field value (same as event.target.value)
-  const { register, handleSubmit, reset, getValues, formState } = useForm();
+  const { register, handleSubmit, reset, getValues, formState } = useForm({
+    defaultValues: isEditSession ? editValues : {},
+  });
   const { errors } = formState;
 
   function onSubmit(data) {
-    addPrice(data, {
-      onSuccess: () => {
-        reset();
-        onCloseModal?.();
-      },
-    });
+    if (isEditSession) {
+      updatePrice(
+        { ...data, id: editId },
+
+        {
+          onSuccess: () => {
+            reset();
+            onCloseModal?.();
+          },
+        }
+      );
+    } else {
+      addPrice(data, {
+        onSuccess: () => {
+          reset();
+          onCloseModal?.();
+        },
+      });
+    }
   }
 
   function onError(errors) {
@@ -49,7 +69,7 @@ function NewPriceItemForm({ onCloseModal }) {
         <Input
           type="text"
           id="itemName"
-          disabled={isAdding}
+          disabled={isAdding || isUpdating}
           {...register("itemName", { required: "This field is required" })}
         />
       </FormRow>
@@ -58,7 +78,7 @@ function NewPriceItemForm({ onCloseModal }) {
         <Textarea
           type="text"
           id="description"
-          disabled={isAdding}
+          disabled={isAdding || isUpdating}
           {...register("description")}
         />
       </FormRow>
@@ -67,7 +87,7 @@ function NewPriceItemForm({ onCloseModal }) {
         <Input
           type="text"
           id="unitPrice"
-          disabled={isAdding}
+          disabled={isAdding || isUpdating}
           {...register("unitPrice", { required: "This field is required" })}
         />
       </FormRow>
@@ -76,7 +96,7 @@ function NewPriceItemForm({ onCloseModal }) {
         <Input
           type="text"
           id="notes"
-          disabled={isAdding}
+          disabled={isAdding || isUpdating}
           {...register("notes")}
         />
       </FormRow>
@@ -87,14 +107,18 @@ function NewPriceItemForm({ onCloseModal }) {
           $size="medium"
           $variation="secondary"
           type="reset"
-          disabled={isAdding}
+          disabled={isAdding || isUpdating}
           onClick={() => onCloseModal?.()}
         >
           Cancel
         </Button>
 
-        <Button $size="medium" $variation="primary" disabled={isAdding}>
-          Add item
+        <Button
+          $size="medium"
+          $variation="primary"
+          disabled={isAdding || isUpdating}
+        >
+          {isEditSession ? "Edit item" : "Add item"}
         </Button>
       </FormRow>
     </Form>

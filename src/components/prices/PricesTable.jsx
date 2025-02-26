@@ -31,6 +31,7 @@ function PricesTable() {
         />
       </Table>
 
+      {/* add new item price button */}
       <AddPriceItem />
     </>
   );

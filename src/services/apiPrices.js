@@ -6,7 +6,7 @@ export async function getPrices() {
   const { data, error } = await supabase.from("prices").select("*");
 
   if (error) {
-    console.error(error);
+    console.log(error);
     throw new Error("Prices could not be loaded");
   }
 
@@ -20,6 +20,11 @@ export async function addEditPrice(newItem) {
   // add price item
   if (!newItem.id) {
     query = query.insert([{ ...newItem }]);
+  }
+
+  // edit price item
+  if (newItem.id) {
+    query = query.update({ ...newItem }).eq("id", newItem.id);
   }
 
   const { data, error } = await query.select().single();
