@@ -38,6 +38,11 @@ const StyledTd = styled.td`
   text-align: center;
 `;
 
+const Empty = styled.p`
+  text-align: center;
+  margin: 2rem;
+`;
+
 // 1. create a context
 const TableContext = createContext();
 
@@ -55,8 +60,10 @@ function Header({ children }) {
   return <StyledHeader>{children}</StyledHeader>;
 }
 
-function Body({ children }) {
-  return <StyledBody>{children}</StyledBody>;
+function Body({ data, render }) {
+  if (!data.length) return <Empty>No data to display</Empty>;
+
+  return <StyledBody>{data.map(render)}</StyledBody>;
 }
 
 function Row({ children }) {

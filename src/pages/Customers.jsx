@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
-import CustomerTable from "../components/customers/CustomerTable";
-import AddCustomer from "../components/customers/AddCustomer";
+import CustomersTable from "../components/customers/CustomersTable";
 
 import Row from "../styles/Row";
 import Heading from "../styles/Heading";
@@ -22,8 +21,7 @@ function Customers() {
         </Row>
 
         <Row type="vertical">
-          <CustomerTable />
-          <AddCustomer />
+          <CustomersTable />
         </Row>
       </StyledDiv>
     </section>
