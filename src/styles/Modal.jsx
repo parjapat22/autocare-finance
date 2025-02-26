@@ -2,7 +2,7 @@ import { useState, createContext, useContext, cloneElement } from "react";
 import { createPortal } from "react-dom";
 import styled from "styled-components";
 
-import { useOutsideClick } from "../hooks/useOutsideClick";
+// import { useOutsideClick } from "../hooks/useOutsideClick";
 
 import { HiXMark } from "react-icons/hi2";
 
