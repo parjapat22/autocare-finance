@@ -13,7 +13,6 @@ export function useDeletePrice() {
 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["prices"] });
-
       toast.success("Item deleted successfully");
     },
 

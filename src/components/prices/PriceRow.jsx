@@ -20,6 +20,7 @@ function PriceRow({ item }) {
       <Table.Td>${unitPrice}</Table.Td>
       <Table.Td>{notes.trim() ? notes : <span>&mdash;</span>}</Table.Td>
 
+      {/* actions column */}
       <Table.Td>
         <Modal>
           {/* edit item */}

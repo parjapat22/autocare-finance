@@ -15,7 +15,6 @@ export function useDeleteCustomer() {
 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["customers"] });
-
       toast.success("Cabin deleted successfully");
     },
 

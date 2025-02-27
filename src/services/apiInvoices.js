@@ -11,3 +11,13 @@ export async function getInvoices() {
 
   return data;
 }
+
+// delete invoice
+export async function deleteInvoice(id) {
+  const { error } = await supabase.from("invoices").delete().eq("id", id);
+
+  if (error) {
+    console.log(error);
+    throw new Error("Invoice could not be deleted");
+  }
+}
