@@ -1,5 +1,7 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+
+import Button from "../styles/Button";
 
 import { HiHome } from "react-icons/hi2";
 import { HiUserGroup } from "react-icons/hi";
@@ -53,6 +55,8 @@ const StyledNavLink = styled(NavLink)`
 `;
 
 function NavMenu() {
+  const navigate = useNavigate();
+
   return (
     <nav>
       <StyledUl>
@@ -82,6 +86,16 @@ function NavMenu() {
             <HiClipboardDocumentList />
             <span>Prices</span>
           </StyledNavLink>
+        </StyledLi>
+
+        <StyledLi>
+          <Button
+            $size="medium"
+            $variation="primary"
+            onClick={() => navigate("/create-invoice")}
+          >
+            Create Invoice
+          </Button>
         </StyledLi>
       </StyledUl>
     </nav>

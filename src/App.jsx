@@ -8,8 +8,9 @@ import GlobalStyles from "./styles/GlobalStyles";
 import AppLayout from "./ui/AppLayout";
 import Dashboard from "./pages/Dashboard";
 import Customers from "./pages/Customers";
-import Prices from "./pages/Prices";
 import Invoices from "./pages/Invoices";
+import Prices from "./pages/Prices";
+import CreateInvoice from "./pages/CreateInvoice";
 
 const queryClient = new QueryClient({
   // 10 seconds * 1000 milliseconds
@@ -31,6 +32,7 @@ function App() {
             <Route path="customers" element={<Customers />} />
             <Route path="invoices" element={<Invoices />} />
             <Route path="prices" element={<Prices />} />
+            <Route path="create-invoice" element={<CreateInvoice />} />
           </Route>
 
           {/* <Route path="*" element={<PageNotFound />} /> */}

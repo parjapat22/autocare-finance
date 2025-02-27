@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 import InvoicesTable from "../components/invoices/InvoicesTable";
-// import Invoice from "../components/invoices/Invoice";
 
 import Row from "../styles/Row";
 import Heading from "../styles/Heading";
@@ -23,7 +22,6 @@ function Invoices() {
 
         <Row type="vertical">
           <InvoicesTable />
-          {/* <Invoice /> */}
         </Row>
       </StyledDiv>
     </section>

@@ -1,4 +1,22 @@
 import { useState } from "react";
+import styled from "styled-components";
+
+import Row from "../../styles/Row";
+import InputRow from "../../styles/InputRow";
+import Input from "../../styles/Input";
+import Button from "../../styles/Button";
+
+const Textarea = styled.textarea`
+  width: 50rem;
+  padding: 1rem;
+  border: 1px solid var(--color-neutral-300);
+  border-radius: 1rem;
+`;
+
+const Error = styled.span`
+  color: var(--color-red-500);
+  font-size: 1.5rem;
+`;
 
 function AddItem({ onAddItem, onDeleteItem }) {
   const [description, setDescription] = useState("");
@@ -9,14 +27,7 @@ function AddItem({ onAddItem, onDeleteItem }) {
 
   function handleAddItem() {
     if (!description.trim()) {
-      setErrorMessage(`Please input data in the Item section.`);
-      return;
-    }
-
-    // Check if the item contains only alphabetical characters
-    if (!/^[a-zA-Z]+$/.test(description)) {
-      setErrorMessage(`Item should only contain 
-                alphabetical characters.`);
+      setErrorMessage("This field is required");
       return;
     }
 
@@ -31,49 +42,53 @@ function AddItem({ onAddItem, onDeleteItem }) {
   }
 
   return (
-    <div className="add-item">
-      <div className="new-item">
-        <div>
-          <label>Description:</label>
-          <input
-            type="text"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </div>
-
-        <div>
-          <label>Quantity:</label>
-          <input
+    <Row type="vertical">
+      <Row type="horizontal">
+        <InputRow>
+          <label>Quantity</label>
+          <Input
             type="number"
             value={quantity}
             onChange={(e) => setQuantity(Number(e.target.value))}
           />
-        </div>
+        </InputRow>
 
-        <div>
-          <label>Unit Price:</label>
-          <input
+        <InputRow>
+          <label>Unit Price</label>
+          <Input
             type="number"
             value={uPrice}
             onChange={(e) => setUPrice(Number(e.target.value))}
           />
-        </div>
+        </InputRow>
 
-        <div>
-          <label>Amount:</label>
-          <input
+        <InputRow>
+          <label>Amount</label>
+          <Input
             type="number"
             value={amount}
             onChange={(e) => setAmount(Number(e.target.value))}
           />
-        </div>
+        </InputRow>
+      </Row>
 
-        <button onClick={handleAddItem}>Add Item</button>
-      </div>
+      <Row type="horizontal">
+        <Row type="horizontal">
+          <label>Description</label>
+          <Textarea
+            type="text"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
 
-      <p className="errorMsg">{errorMessage}</p>
-    </div>
+          <Error>{errorMessage}</Error>
+        </Row>
+
+        <Button $size="medium" $variation="primary" onClick={handleAddItem}>
+          Add item
+        </Button>
+      </Row>
+    </Row>
   );
 }
 

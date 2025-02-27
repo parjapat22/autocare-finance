@@ -1,75 +1,64 @@
-function ItemsList({ items, onDeleteItem, subTotal }) {
-  const gst = Number(subTotal * 0.1);
-  const total = Number(subTotal + gst);
+import Table from "../../styles/Table";
+import Row from "../../styles/Row";
+import Button from "../../styles/Button";
+
+function ItemsList({ items, onDeleteItem, total }) {
+  const gst = Number(total / 11);
+  const subTotal = Number(total - gst);
 
   return (
-    <>
-      <table>
-        <thead>
-          <tr>
-            <th style={{ width: "60%" }}>Description</th>
-            <th style={{ width: "10%" }}>Qty</th>
-            <th style={{ width: "12%" }}>Unit Price</th>
-            <th style={{ width: "18%" }}>Amount</th>
-            <th></th>
-          </tr>
-        </thead>
+    <Row type="vertical">
+      <Table role="table">
+        <Table.Header>
+          <Table.Row>
+            <Table.Th>Description</Table.Th>
+            <Table.Th>Qty</Table.Th>
+            <Table.Th>Unit Price</Table.Th>
+            <Table.Th>Amount</Table.Th>
+            <Table.Th></Table.Th>
+          </Table.Row>
+        </Table.Header>
 
         <tbody>
           {items.map((item, index) => (
-            <tr key={index} className="item">
-              <td>{item.description}</td>
-              <td>{item.quantity}</td>
-              <td>{item.uPrice.toFixed(2)}</td>
-              <td>{item.amount.toFixed(2)}</td>
-              <td>
-                <button onClick={() => onDeleteItem(index)}>X</button>
-              </td>
-            </tr>
+            <Table.Row key={index}>
+              <Table.Td>{item.description}</Table.Td>
+              <Table.Td>{item.quantity}</Table.Td>
+              <Table.Td>{item.uPrice.toFixed(2)}</Table.Td>
+              <Table.Td>{item.amount.toFixed(2)}</Table.Td>
+
+              <Table.Td>
+                <Button
+                  $size="small"
+                  $variation="danger"
+                  onClick={() => onDeleteItem(index)}
+                >
+                  X
+                </Button>
+              </Table.Td>
+            </Table.Row>
           ))}
         </tbody>
-      </table>
+      </Table>
 
-      <div className="payment-total">
-        {/* column 1 - payment info */}
-        <div className="payment">
-          <h4>Payment Info:</h4>
-
-          <div className="row">
-            <p>Account Name:</p>
-            <p>Highend Autocare</p>
-          </div>
-
-          <div className="row">
-            <p>BSB:</p>
-            <p>064 164</p>
-          </div>
-
-          <div className="row">
-            <p>Account Number:</p>
-            <p>1082 1775</p>
-          </div>
+      {/* totals */}
+      <Row type="horizontal">
+        <div>
+          <h4>Sub Total</h4>
+          <p>${subTotal.toFixed(2)}</p>
         </div>
 
-        {/* column 2 - items total */}
-        <div className="total">
-          <div className="row">
-            <h4>Sub Total</h4>
-            <p>${subTotal.toFixed(2)}</p>
-          </div>
-
-          <div className="row">
-            <h4>GST</h4>
-            <p>${gst.toFixed(2)}</p>
-          </div>
-
-          <div className="row">
-            <h4>Total</h4>
-            <p>${total.toFixed(2)}</p>
-          </div>
+        <div>
+          <h4>GST</h4>
+          <p>${gst.toFixed(2)}</p>
         </div>
-      </div>
-    </>
+
+        <div>
+          <h4>Total</h4>
+          <p>${total.toFixed(2)}</p>
+        </div>
+      </Row>
+    </Row>
   );
 }
 
